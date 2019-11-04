@@ -28,22 +28,26 @@ public class MovementController : MonoBehaviour
 	}
 	public void HorizontalMove(ref Vector2 velocity)
 	{
+		float direction = Mathf.Sign(velocity.x);
+		float distance = Mathf.Abs(velocity.x);
+
 		for (int i = 0; i < _verticalRayCount; i++)
 		{
-			Vector2 origin = _bottomRight + new Vector2(0, _verticalRaySpacing * i);
+			Vector2 baseOrigin = direction == 1 ? _bottomRight : _bottomLeft;
+			Vector2 origin = baseOrigin + new Vector2(0, _verticalRaySpacing * i);
 
-			Debug.DrawLine(origin,origin + new Vector2(velocity.x,0));
+			Debug.DrawLine(origin,origin + new Vector2(direction*distance,0));
 
 			RaycastHit2D hit = Physics2D.Raycast(
 			origin,
-			Vector2.right,
+			new Vector2(direction,0),
 			velocity.x,
 			_layerObstacles
 			);
 
 			if (hit)
 			{
-				velocity.x = hit.distance;
+				velocity.x = hit.distance*direction;
 				Debug.Log(hit.point);
 			}
 		}
