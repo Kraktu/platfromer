@@ -6,6 +6,7 @@ public class MovementController : MonoBehaviour
 {
 	public int _horizontalRayCount, _verticalRayCount;
 	public LayerMask _layerObstacles;
+	public LayerMask _layerOneWayPlatform;
 	float _skinWidth;
 	BoxCollider2D _boxCollider;
 	Vector2 _bottomLeft, _bottomRight, _topLeft, _topRight;
@@ -94,13 +95,16 @@ public class MovementController : MonoBehaviour
 
 			if (hit)
 			{
-				velocity.y = (hit.distance - _skinWidth) * direction;
-				distance = hit.distance - _skinWidth;
-				if (direction > 0)
-					_collision.top = true;
-				if (direction < 0)
-					_collision.bottom = true;
-				Debug.Log(hit.point);
+				if(!(hit.transform.gameObject.layer==(_layerOneWayPlatform|(1<<hit.transform.gameObject.layer))&&direction>0))
+				{
+					velocity.y = (hit.distance - _skinWidth) * direction;
+					distance = hit.distance - _skinWidth;
+					if (direction > 0)
+						_collision.top = true;
+					if (direction < 0)
+						_collision.bottom = true;
+				}
+				
 			}
 		}
 	}

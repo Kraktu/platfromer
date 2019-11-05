@@ -69,10 +69,9 @@ public class PlayerAccel : MonoBehaviour
 		}
 
 		velocity.x += horizontal * acceleration * controlModifier * Time.deltaTime;
-		if (velocity.x > maxSpeed)
-			velocity.x = maxSpeed;
-		if (velocity.x < -maxSpeed)
-			velocity.x = -maxSpeed;
+
+		if (Mathf.Abs(velocity.x) > maxSpeed)
+			velocity.x = maxSpeed*horizontal;
 
 		if (horizontal == 0)
 		{
