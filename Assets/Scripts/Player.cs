@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
 {
 	[Tooltip("Number of meter by second")]
 	public float _speed;
+	public float _gravity;
+
 	Vector2 _velocity;
 	MovementController _movementController;
 	private void Start()
@@ -15,7 +17,6 @@ public class Player : MonoBehaviour
 	private void Update()
 	{
 		int horizontal = 0;
-		int vertical = 0;
 		if (Input.GetKey(KeyCode.Q))
 		{
 			horizontal -= 1;
@@ -24,15 +25,13 @@ public class Player : MonoBehaviour
 		{
 			horizontal += 1;
 		}
-		if (Input.GetKey(KeyCode.Z))
-		{
-			vertical += 1;
-		}
-		if (Input.GetKey(KeyCode.S))
-		{
-			vertical -= 1;
-		}
-		_velocity= new Vector2(horizontal,vertical) * Time.deltaTime * _speed;
-		_movementController.Move(_velocity);
+
+		_velocity.x = horizontal * _speed;
+
+		if (_movementController._collision.bottom)
+			_velocity.y = 0;
+		_velocity.y += _gravity * Time.deltaTime * -1f;
+
+		_movementController.Move(_velocity*Time.deltaTime);
 	}
 }
