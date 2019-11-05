@@ -11,7 +11,6 @@ public class Player : MonoBehaviour
 	[Tooltip("Unity value of max jump height")]
 	public float _jumpHeight;
 
-	float _horizontal = 0;
 	float _gravity;
 	float _jumpForce;
 	float _horizontalModifier=1;
