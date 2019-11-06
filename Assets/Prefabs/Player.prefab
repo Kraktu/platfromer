@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 498982213}
   - component: {fileID: 498982210}
   - component: {fileID: 498982214}
+  - component: {fileID: 498543798}
+  - component: {fileID: 1084961760626847273}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -146,9 +148,10 @@ MonoBehaviour:
   maxFallingSpeed: -20
   maxSpeed: 10
   timeTomaxSpeed: 0.2
-  jumpHeight: 6
-  timeToMaxJump: 0.5
+  jumpHeight: 2
+  timeToMaxJump: 0.2
   airControl: 0.02
+  _maxAirJump: 1
 --- !u!114 &498982214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,3 +169,37 @@ MonoBehaviour:
   _layerObstacles:
     serializedVersion: 2
     m_Bits: 256
+--- !u!95 &498543798
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2271324740578224877}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 901c2ec3849527e47a0e4b226deb148d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1084961760626847273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2271324740578224877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bfa3cba3644d2540827bb1811263bce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxLifePoint: 10
+  _playerPrefab: {fileID: 2271324740578224877}
+  _lifeText: {fileID: 0}

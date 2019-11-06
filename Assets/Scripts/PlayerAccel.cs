@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(MovementController))]
 public class PlayerAccel : MonoBehaviour
 {
+	Animator anim;
 	float acceleration=1;
 	public float maxFallingSpeed;
 	[Tooltip("Number of meter by second")]
@@ -20,7 +21,10 @@ public class PlayerAccel : MonoBehaviour
 	[Tooltip("Can i change direction in air?")]
 	[Range(0, 1)]
 	public float airControl;
+	public int _maxAirJump;
+	int _jumpCount;
 
+	bool _turnedRight = true, _isJumping = false, _wallJumpedLeft = false, _wallJumpedRight = false, _wallJumped=false;
 	float gravity;
 	float jumpForce;
 	int horizontal = 0;
@@ -31,6 +35,7 @@ public class PlayerAccel : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
+		transform.localScale = new Vector3(1, 1, 1);
 		acceleration *= (2f*maxSpeed)/ Mathf.Pow(timeTomaxSpeed,2);
 		minSpeedThreshold = acceleration / Application.targetFrameRate * 2f;
 		movementController = GetComponent<MovementController>();
@@ -38,6 +43,9 @@ public class PlayerAccel : MonoBehaviour
 		// Math calculation for gravity and jumpForce
 		gravity = -(2 * jumpHeight) / Mathf.Pow(timeToMaxJump, 2);
 		jumpForce = Mathf.Abs(gravity) * timeToMaxJump;
+
+		anim = GetComponent<Animator>();
+
 	}
 
 	// Update is called once per frame
@@ -56,11 +64,24 @@ public class PlayerAccel : MonoBehaviour
 		{
 			horizontal -= 1;
 		}
-
-		if (Input.GetKeyDown(KeyCode.Space) && movementController._collision.bottom)
+		if (Input.GetKey(KeyCode.S)&&Input.GetKey(KeyCode.Space)&& (movementController._onOneWayPlatform==true))
 		{
-			JumpA();
+			transform.Translate(Vector2.down*0.5f);
 		}
+		if (Input.GetKeyDown(KeyCode.H))
+		{
+			anim.SetTrigger("hit");
+		}
+
+		if (velocity.x!= 0 && movementController._collision.bottom)
+		{
+			anim.Play("FrogRun");
+		}
+		if (velocity.x==0&& movementController._collision.bottom)
+		{
+			anim.Play("FrogIdle");
+		}
+		UpdateJump();
 
 		float controlModifier = 1f;
 		if (!movementController._collision.bottom)
@@ -88,12 +109,76 @@ public class PlayerAccel : MonoBehaviour
 		{
 			velocity.y = maxFallingSpeed;
 		}
-
 		movementController.Move(velocity * Time.deltaTime);
+		if(velocity.x<0&&_turnedRight==true)
+		{
+			transform.localScale=new Vector3(-1, 1, 1);
+			_turnedRight = false;
+		}
+		if (velocity.x>0&&_turnedRight==false)
+		{
+			transform.localScale = new Vector3(1, 1, 1);
+			_turnedRight = true;
+		}
 	}
 
-	void JumpA()
+	void UpdateJump()
 	{
+		if (movementController._collision.bottom)
+		{
+			_jumpCount = 0;
+			_isJumping = false;
+			_wallJumpedLeft = false;
+			_wallJumpedLeft = false;
+			_wallJumpedRight = false;
+		}
+		if (!movementController._collision.bottom&&_isJumping==false)
+		{
+			_jumpCount = 1;
+		}
+
+		if (Input.GetKeyDown(KeyCode.Space) && _jumpCount <= _maxAirJump)
+		{
+			JumpA();
+			_jumpCount++;
+			anim.Play("FrogJump");
+			if (_jumpCount>1)
+			{
+				anim.Play("FrogDoubleJump");
+			}
+
+		}
+		if (movementController._collision.left&&_wallJumpedLeft==false&&!movementController._collision.bottom)
+		{
+			_jumpCount--;
+			_wallJumpedLeft=true;
+			_wallJumpedRight = false;
+			_wallJumped = true;
+			anim.Play("FrogWallJump");
+			
+		}
+		if (movementController._collision.right&&_wallJumpedRight==false&&!movementController._collision.bottom)
+		{
+			_jumpCount--;
+			_wallJumpedRight = true;
+			_wallJumpedLeft = false;
+			_wallJumped = true;
+			anim.Play("FrogWallJump");
+			
+		}
+	}
+	void JumpA()
+	 {
+
+		_isJumping = true;
 		velocity.y = jumpForce;
+		if (_wallJumped==true&& _wallJumpedRight == true)
+		{
+			velocity.x = -10;
+		}
+		if (_wallJumped == true&& _wallJumpedLeft == true)
+		{
+			velocity.x = 10;
+		}
 	}
 }

@@ -4,14 +4,16 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class MovementController : MonoBehaviour
 {
+	public RaycastHit2D hit;
 	public int _horizontalRayCount, _verticalRayCount;
 	public LayerMask _layerObstacles;
-	public LayerMask _layerOneWayPlatform;
 	float _skinWidth;
 	BoxCollider2D _boxCollider;
 	Vector2 _bottomLeft, _bottomRight, _topLeft, _topRight;
 	float _verticalRaySpacing, _horizontalRaySpacing;
 	public Collision _collision;
+	[HideInInspector]
+	public bool _onOneWayPlatform;
 
 	public struct Collision
 	{
@@ -54,7 +56,7 @@ public class MovementController : MonoBehaviour
 
 			Debug.DrawLine(origin,origin + new Vector2(direction*distance,0));
 
-			RaycastHit2D hit = Physics2D.Raycast(
+			hit = Physics2D.Raycast(
 			origin,
 			new Vector2(direction,0),
 			distance,
@@ -63,13 +65,15 @@ public class MovementController : MonoBehaviour
 
 			if (hit)
 			{
-				velocity.x = (hit.distance-_skinWidth)*direction;
-				distance = hit.distance - _skinWidth;
-				if (direction > 0)
-					_collision.right = true;
-				if (direction < 0)
-					_collision.left = true;
-
+				if (!(hit.transform.gameObject.tag == "OneWayPlatform"))
+				{
+					velocity.x = (hit.distance - _skinWidth) * direction;
+					distance = hit.distance - _skinWidth;
+					if (direction > 0)
+						_collision.right = true;
+					if (direction < 0)
+						_collision.left = true;
+				}
 				Debug.Log(hit.point);
 			}
 		}
@@ -95,16 +99,23 @@ public class MovementController : MonoBehaviour
 
 			if (hit)
 			{
-				if(!(hit.transform.gameObject.layer==(_layerOneWayPlatform|(1<<hit.transform.gameObject.layer))&&direction>0))
+				if (!(hit.transform.gameObject.tag == "OneWayPlatform" &&
+					 direction > 0))
 				{
 					velocity.y = (hit.distance - _skinWidth) * direction;
 					distance = hit.distance - _skinWidth;
-					if (direction > 0)
-						_collision.top = true;
+
 					if (direction < 0)
 						_collision.bottom = true;
+					else if (direction > 0)
+						_collision.top = true;
+					_onOneWayPlatform = false;
 				}
-				
+				if(hit.transform.gameObject.tag == "OneWayPlatform")
+				{
+					_onOneWayPlatform=true;
+				}
+
 			}
 		}
 	}
