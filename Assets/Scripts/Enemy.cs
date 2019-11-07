@@ -20,12 +20,20 @@ public class Enemy : MonoBehaviour
 		_spriteRenderer = GetComponent<SpriteRenderer>();
 		_anim = GetComponent<Animator>();
 		_velocity.x = _speed;
-		if (_facingRight==false)
-		{
-			Flip();
-		}
+		StartFacing();
     }
-
+	void StartFacing()
+	{
+		if (_facingRight)
+		{
+			_velocity.x = _speed;
+		}
+		else if (!_facingRight)
+		{
+			_velocity.x = -_speed;
+			_spriteRenderer.flipX = !_spriteRenderer.flipX;
+		}
+	}
     // Update is called once per frame
     void Update()
     {
