@@ -8,6 +8,7 @@ public class MovementController : MonoBehaviour
 	public int _horizontalRayCount, _verticalRayCount;
 	public LayerMask _layerObstacles;
 	float _skinWidth;
+	float _pitDistance;
 	BoxCollider2D _boxCollider;
 	Vector2 _bottomLeft, _bottomRight, _topLeft, _topRight;
 	float _verticalRaySpacing, _horizontalRaySpacing;
@@ -18,9 +19,11 @@ public class MovementController : MonoBehaviour
 	public struct Collision
 	{
 		public bool top, bottom, left, right;
+		public bool frontPit;
 		public void Reset()
 		{
 			top = bottom = left = right = false;
+			frontPit = false;
 		}
 	}
 
@@ -28,6 +31,7 @@ public class MovementController : MonoBehaviour
 	{
 		_boxCollider=GetComponent<BoxCollider2D>();
 		_skinWidth = 1 / 16f;
+		_pitDistance = 0.5f;
 		CalculateRaySpacing();
 	}
 	private void Update()
@@ -42,6 +46,7 @@ public class MovementController : MonoBehaviour
 			HorizontalMove(ref velocity);
 		if (velocity.y !=0)
 			VerticalMove(ref velocity);
+		DetectFrontPit(velocity);
 		transform.Translate(velocity);
 	}
 	public void HorizontalMove(ref Vector2 velocity)
@@ -136,5 +141,20 @@ public class MovementController : MonoBehaviour
 		_bottomRight = new Vector2(bounds.max.x, bounds.min.y);
 		_topLeft = new Vector2(bounds.min.x, bounds.max.y);
 		_topRight = new Vector2(bounds.max.x, bounds.max.y);
+	}
+	void DetectFrontPit(Vector2 velocity)
+	{
+		Vector2 origin = velocity.x >0 ? _bottomRight : _bottomLeft;
+		Debug.DrawLine(origin, origin + Vector2.down * _pitDistance);
+		RaycastHit2D hit = Physics2D.Raycast(
+			origin,
+			Vector2.down,
+			_pitDistance,
+			_layerObstacles
+			);
+		if (!hit)
+		{
+			_collision.frontPit = true;
+		}
 	}
 }
