@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(MovementController))]
 public class PlayerAccel : MonoBehaviour
 {
+	AnimationTIme _animationTIme;
 	Animator anim;
 	float acceleration=1;
 	public float maxFallingSpeed;
@@ -13,6 +14,7 @@ public class PlayerAccel : MonoBehaviour
 	[Tooltip("Time in seconds to reach max speed")]
 	public float timeTomaxSpeed;
 	float minSpeedThreshold;
+	public float _hitBounceBack;
 
 	[Tooltip("Unity value of max jump height")]
 	public float jumpHeight;
@@ -24,10 +26,11 @@ public class PlayerAccel : MonoBehaviour
 	public int _maxAirJump;
 	int _jumpCount;
 
-	bool _turnedRight = true, _isJumping = false, _wallJumpedLeft = false, _wallJumpedRight = false, _wallJumped=false;
+	bool _turnedRight = true, _isJumping = false, _wallJumpedLeft = false, _wallJumpedRight = false, _wallJumped=false, _hitted, _freeze = false;
 	float gravity;
 	float jumpForce;
 	int horizontal = 0;
+	Coroutine _gettingHit;
 
 	Vector2 velocity = new Vector2();
 	MovementController movementController;
@@ -39,7 +42,7 @@ public class PlayerAccel : MonoBehaviour
 		acceleration *= (2f*maxSpeed)/ Mathf.Pow(timeTomaxSpeed,2);
 		minSpeedThreshold = acceleration / Application.targetFrameRate * 2f;
 		movementController = GetComponent<MovementController>();
-
+		_animationTIme = GetComponent<AnimationTIme>();
 		// Math calculation for gravity and jumpForce
 		gravity = -(2 * jumpHeight) / Mathf.Pow(timeToMaxJump, 2);
 		jumpForce = Mathf.Abs(gravity) * timeToMaxJump;
@@ -51,16 +54,20 @@ public class PlayerAccel : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		if (transform.position.y<=-12)
+		{
+			Die();
+		}
 		if (movementController._collision.bottom || movementController._collision.top)
 			velocity.y = 0;
 
 		horizontal = 0;
 
-		if (Input.GetKey(KeyCode.D))
+		if (Input.GetKey(KeyCode.D) && _freeze == false)
 		{
 			horizontal += 1;
 		}
-		if (Input.GetKey(KeyCode.Q))
+		if (Input.GetKey(KeyCode.Q) && _freeze == false)
 		{
 			horizontal -= 1;
 		}
@@ -68,16 +75,11 @@ public class PlayerAccel : MonoBehaviour
 		{
 			transform.Translate(Vector2.down*0.5f);
 		}
-		if (Input.GetKeyDown(KeyCode.H))
-		{
-			anim.SetTrigger("hit");
-		}
-
-		if (velocity.x!= 0 && movementController._collision.bottom)
+		if (velocity.x!= 0 && movementController._collision.bottom && _freeze == false)
 		{
 			anim.Play("FrogRun");
 		}
-		if (velocity.x==0&& movementController._collision.bottom)
+		if (velocity.x==0&& movementController._collision.bottom && _freeze == false)
 		{
 			anim.Play("FrogIdle");
 		}
@@ -168,7 +170,7 @@ public class PlayerAccel : MonoBehaviour
 		}
 	}
 	void JumpA()
-	 {
+	{
 
 		_isJumping = true;
 		velocity.y = jumpForce;
@@ -179,6 +181,48 @@ public class PlayerAccel : MonoBehaviour
 		if (_wallJumped == true&& _wallJumpedLeft == true)
 		{
 			velocity.x = 10;
+		}
+	}
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+
+		if (enemy != null)
+		{
+			if (_gettingHit == null)
+			{
+				_gettingHit = StartCoroutine(Hitted());
+			}
+		}
+	}
+
+	private void Die()
+	{
+		SpawnPlayer spawnPlayer = FindObjectOfType<SpawnPlayer>();
+		spawnPlayer.Spawn();
+		Destroy(gameObject);
+	}
+	IEnumerator Hitted()
+	{
+		anim.Play("FrogHit");
+		_freeze = true;
+		StartCoroutine(HittedMovement());
+		yield return new WaitForSeconds(_animationTIme.GetTime("FrogHit"));
+		Die();	
+	}
+	IEnumerator HittedMovement()
+	{
+		while (true)
+		{
+			if (transform.localScale==new Vector3 (1,1,1))
+			{
+				movementController.Move(Vector2.left*Time.deltaTime*_hitBounceBack);
+			}
+			if (transform.localScale==new Vector3(-1,1,1))
+			{
+				movementController.Move(Vector2.right * Time.deltaTime * _hitBounceBack);
+			}
+		yield return null;
 		}
 	}
 }

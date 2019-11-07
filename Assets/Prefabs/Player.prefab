@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 498982210}
   - component: {fileID: 498982214}
   - component: {fileID: 498543798}
+  - component: {fileID: 4311788025371575711}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -116,7 +117,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.24645948}
@@ -147,6 +148,7 @@ MonoBehaviour:
   maxFallingSpeed: -20
   maxSpeed: 10
   timeTomaxSpeed: 0.2
+  _hitBounceBack: 10
   jumpHeight: 2
   timeToMaxJump: 0.2
   airControl: 0.2
@@ -188,3 +190,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4311788025371575711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2271324740578224877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c935e533664ff84a8d5d043ea0c5961, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

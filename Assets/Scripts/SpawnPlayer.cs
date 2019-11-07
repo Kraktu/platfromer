@@ -8,7 +8,10 @@ public class SpawnPlayer : MonoBehaviour
 
 	private void Start()
 	{
+		Spawn();
+	}
+	public void Spawn()
+	{
 		Instantiate(_playerToSpawn, transform.position, Quaternion.identity);
 	}
-
 }
