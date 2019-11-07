@@ -63,11 +63,11 @@ public class PlayerAccel : MonoBehaviour
 
 		horizontal = 0;
 
-		if (Input.GetKey(KeyCode.D) && _freeze == false)
+		if (Input.GetKey(KeyCode.D) && !_freeze)
 		{
 			horizontal += 1;
 		}
-		if (Input.GetKey(KeyCode.Q) && _freeze == false)
+		if (Input.GetKey(KeyCode.Q) && !_freeze)
 		{
 			horizontal -= 1;
 		}
@@ -139,7 +139,7 @@ public class PlayerAccel : MonoBehaviour
 			_jumpCount = 1;
 		}
 
-		if (Input.GetKeyDown(KeyCode.Space) && _jumpCount <= _maxAirJump)
+		if (Input.GetKeyDown(KeyCode.Space) && _jumpCount <= _maxAirJump && !_freeze)
 		{
 			JumpA();
 			_jumpCount++;
@@ -186,6 +186,7 @@ public class PlayerAccel : MonoBehaviour
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+		CameraScroll cameraScroll = collision.gameObject.GetComponent<CameraScroll>();
 
 		if (enemy != null)
 		{
@@ -193,6 +194,10 @@ public class PlayerAccel : MonoBehaviour
 			{
 				_gettingHit = StartCoroutine(Hitted());
 			}
+		}
+		if(cameraScroll!=null)
+		{
+			cameraScroll.CameraScrollUp();
 		}
 	}
 
