@@ -15,7 +15,7 @@ public class PlayerHitJump : MonoBehaviour
 	{
 		Enemy enemy = collision.gameObject.GetComponent<Enemy>();
 
-		if (enemy != null)
+		if (enemy != null&&!enemy._isTrap)
 		{
 			HitEnemy(enemy);
 		}

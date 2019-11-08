@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
 {
 	public float _speed;
 	public bool _facingRight;
+	public bool _isTrap;
 	public float _stopTimeOnFlip;
 	[HideInInspector]
 	public bool _dangerous;

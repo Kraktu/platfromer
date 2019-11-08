@@ -232,4 +232,9 @@ public class PlayerAccel : MonoBehaviour
 		yield return null;
 		}
 	}
+	public void Freeze()
+	{
+		_freeze = true;
+		anim.Play("FrogIdle");
+	}
 }

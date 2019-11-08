@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 1257177808153347208}
   - component: {fileID: 6281593524243697354}
   - component: {fileID: 7612421676887625942}
+  - component: {fileID: 6483130993387369976}
+  - component: {fileID: 8561491666984905090}
   m_Layer: 10
   m_Name: Spike
   m_TagString: Untagged
@@ -107,3 +109,38 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8903446, y: 0.4095459}
   m_EdgeRadius: 0
+--- !u!114 &6483130993387369976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8497189948752335096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e76ab107f5c78dc4ab312560aa4bad8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _horizontalRayCount: 0
+  _verticalRayCount: 0
+  _layerObstacles:
+    serializedVersion: 2
+    m_Bits: 0
+  _onOneWayPlatform: 0
+--- !u!114 &8561491666984905090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8497189948752335096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3877ba2d8092a64f9d247a99ab49f51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 0
+  _facingRight: 0
+  _isTrap: 1
+  _stopTimeOnFlip: 0
+  _dangerous: 0
