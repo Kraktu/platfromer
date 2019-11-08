@@ -4,21 +4,50 @@ using UnityEngine;
 
 public class CameraScroll : MonoBehaviour
 {
-	public Camera _camera;
-	public GameObject _background;
-	bool _isUpTriggered = false;
-
-	public void CameraScrollUp()
+	PlayerAccel _player;
+	Camera _camera;
+	private void Start()
 	{
-		if (_isUpTriggered==false)
+		_camera = GetComponent<Camera>();
+		StartCoroutine(FindingPlayer());
+		StartCoroutine(CameraFollowingPlayer());
+	}
+	IEnumerator FindingPlayer()
+	{
+		while (true)
 		{
-			_camera.transform.Translate(new Vector3(0, 23, 0));
-			_background.transform.Translate(new Vector3(0, 23, 0));
-			_isUpTriggered = true;
+			if (_player == null)
+			{
+				_player = FindObjectOfType<PlayerAccel>();
+			}
+			yield return null;
 		}
 	}
-	public void ResetCameraTriggerUp()
+	IEnumerator CameraFollowingPlayer()
 	{
-		_isUpTriggered = false;
+		while (true)
+		{
+			if (_player != null)
+			{
+				if (_player.transform.position.y>transform.position.y+_camera.orthographicSize)
+				{
+					transform.Translate(0, _camera.orthographicSize*2, 0);
+				}
+				if (_player.transform.position.y < transform.position.y - _camera.orthographicSize-3)
+				{
+					transform.Translate(0, -_camera.orthographicSize * 2, 0);
+				}
+				if (_player.transform.position.x>transform.position.x+_camera.orthographicSize*_camera.aspect)
+				{
+					transform.Translate(_camera.orthographicSize * _camera.aspect*2, 0, 0);
+				}
+				if (_player.transform.position.x < transform.position.x - _camera.orthographicSize * _camera.aspect)
+				{
+					transform.Translate(-_camera.orthographicSize * _camera.aspect*2, 0, 0);
+				}
+			}
+			yield return null;
+		}
 	}
 }
+

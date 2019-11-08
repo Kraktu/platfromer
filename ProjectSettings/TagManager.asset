@@ -51,3 +51,6 @@ TagManager:
   - name: Obstacles
     uniqueID: 640539853
     locked: 0
+  - name: Hint
+    uniqueID: 85332343
+    locked: 0

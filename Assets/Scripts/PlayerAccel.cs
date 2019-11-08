@@ -195,10 +195,6 @@ public class PlayerAccel : MonoBehaviour
 				_gettingHit = StartCoroutine(Hitted());
 			}
 		}
-		if(cameraScroll!=null)
-		{
-			cameraScroll.CameraScrollUp();
-		}
 	}
 
 	private void Die()

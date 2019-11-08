@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6955424596144194448}
   - component: {fileID: 6955424596144194450}
   m_Layer: 8
-  m_Name: Terrain (16x16)_1
+  m_Name: Ground Normal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,7 +25,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6955424596144194455}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -67,8 +67,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 640539853
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 2492004042214043949, guid: 91c0d99cc6e16ca46bcca0f3d9fec45a,
     type: 3}
