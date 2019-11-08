@@ -26,7 +26,8 @@ public class PlayerAccel : MonoBehaviour
 	public int _maxAirJump;
 	int _jumpCount;
 
-	bool _turnedRight = true, _isJumping = false, _wallJumpedLeft = false, _wallJumpedRight = false, _wallJumped=false, _hitted, _freeze = false;
+	bool _turnedRight = true, _isJumping = false, _wallJumpedLeft = false, _wallJumpedRight = false, _wallJumped=false, _hitted;
+	public bool _freeze { get; private set; }
 	float gravity;
 	float jumpForce;
 	int horizontal = 0;
@@ -169,7 +170,7 @@ public class PlayerAccel : MonoBehaviour
 			
 		}
 	}
-	void JumpA()
+	public void JumpA()
 	{
 
 		_isJumping = true;
@@ -192,7 +193,7 @@ public class PlayerAccel : MonoBehaviour
 		{
 			if (_gettingHit == null)
 			{
-				_gettingHit = StartCoroutine(Hitted());
+				_gettingHit = StartCoroutine(Hitted(enemy));
 			}
 		}
 	}
@@ -203,13 +204,18 @@ public class PlayerAccel : MonoBehaviour
 		spawnPlayer.ReSpawn();
 		Destroy(gameObject);
 	}
-	IEnumerator Hitted()
+	IEnumerator Hitted(Enemy enemy)
 	{
+		yield return new WaitForEndOfFrame();
+		if (enemy._dangerous)
+		{
 		anim.Play("FrogHit");
 		_freeze = true;
 		StartCoroutine(HittedMovement());
 		yield return new WaitForSeconds(_animationTIme.GetTime("FrogHit"));
-		Die();	
+		Die();
+		}
+		_gettingHit = null;
 	}
 	IEnumerator HittedMovement()
 	{

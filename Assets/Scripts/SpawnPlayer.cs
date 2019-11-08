@@ -17,7 +17,7 @@ public class SpawnPlayer : MonoBehaviour
 	{
 		_spawnAnimator = GetComponentInParent<Animator>();
 		_settedLifePoint = _maxLifePoint;
-		_lifeText.text = "x " + _maxLifePoint;
+		_lifeText.text = "" + _maxLifePoint;
 		_gameOverScreen.gameObject.SetActive(false);
 		Spawn();
 	}
@@ -31,7 +31,7 @@ public class SpawnPlayer : MonoBehaviour
 		Instantiate(_playerToSpawn, transform.position, Quaternion.identity);
 		_spawnAnimator.Play("StartMoving");
 		_maxLifePoint--;
-		_lifeText.text = "x " + _maxLifePoint;
+		_lifeText.text = "" + _maxLifePoint;
 		GameOverScreen();
 	}
 	public void GameOverScreen()
@@ -44,7 +44,7 @@ public class SpawnPlayer : MonoBehaviour
 	public void Retry()
 	{
 		_maxLifePoint = _settedLifePoint;
-		_lifeText.text = "x " + _maxLifePoint;
+		_lifeText.text = "" + _maxLifePoint;
 		_gameOverScreen.gameObject.SetActive(false);
 	}
 	public void QuitGame()
