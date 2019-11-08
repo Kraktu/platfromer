@@ -200,7 +200,7 @@ public class PlayerAccel : MonoBehaviour
 	private void Die()
 	{
 		SpawnPlayer spawnPlayer = FindObjectOfType<SpawnPlayer>();
-		spawnPlayer.Spawn();
+		spawnPlayer.ReSpawn();
 		Destroy(gameObject);
 	}
 	IEnumerator Hitted()

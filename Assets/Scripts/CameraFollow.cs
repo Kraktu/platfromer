@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
 	PlayerAccel _player;
+	public Camera _camera;
 	private void Start()
 	{
 		StartCoroutine(FindingPlayer());
@@ -27,10 +28,7 @@ public class CameraFollow : MonoBehaviour
 		{
 			if (_player!=null)
 			{
-				transform.position = new Vector3(
-					_player.transform.position.x,
-					_player.transform.position.y,
-					transform.position.z);
+				transform.localPosition = new Vector3(_camera.transform.position.x - _player.transform.position.x * 0.1f, _camera.transform.position.y,0);
 			}
 			yield return null;
 		}
