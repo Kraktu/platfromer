@@ -51473,21 +51473,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game
       objectReference: {fileID: 0}
-    - target: {fileID: 8032190006515860914, guid: 5a875a7d13c54584695231c3864fe5a1,
-        type: 3}
-      propertyPath: _lifeText
-      value: 
-      objectReference: {fileID: 362473096}
-    - target: {fileID: 8032190006515860914, guid: 5a875a7d13c54584695231c3864fe5a1,
-        type: 3}
-      propertyPath: _gameOverScreen
-      value: 
-      objectReference: {fileID: 652419695}
-    - target: {fileID: 8032190006515860914, guid: 5a875a7d13c54584695231c3864fe5a1,
-        type: 3}
-      propertyPath: _maxLifePoint
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 44314035831793060, guid: 5a875a7d13c54584695231c3864fe5a1,
         type: 3}
       propertyPath: m_LocalPosition.x

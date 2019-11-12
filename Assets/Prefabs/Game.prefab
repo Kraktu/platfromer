@@ -43,5 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc2abb1bbfc54a34b85b6b2081d48013, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lifeText: {fileID: 0}
-  _maxLifePoint: 20
+  lifeCount: 3
+  _difficulty: 0
