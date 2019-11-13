@@ -42,11 +42,11 @@ public class CameraScroll : MonoBehaviour
 				}
 				if (_player.transform.position.x > transform.position.x + _camera.orthographicSize * _camera.aspect)
 				{
-					transform.Translate(_camera.orthographicSize * _camera.aspect * 2, 0, 0);
+					transform.Translate((_camera.orthographicSize * _camera.aspect * 2), 0, 0);
 				}
 				if (_player.transform.position.x < transform.position.x - _camera.orthographicSize * _camera.aspect)
 				{
-					transform.Translate(-_camera.orthographicSize * _camera.aspect * 2, 0, 0);
+					transform.Translate((-_camera.orthographicSize * _camera.aspect * 2), 0, 0);
 				}
 			}
 			yield return null;

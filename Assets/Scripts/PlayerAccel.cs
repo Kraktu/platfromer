@@ -36,6 +36,12 @@ public class PlayerAccel : MonoBehaviour
 	Vector2 velocity = new Vector2();
 	MovementController movementController;
 
+	public GameObject _basicProjectiles, _bouncingProjectiles, _unblockedProjectiles;
+	[HideInInspector]
+	public GameObject _choosedProjectile;
+	public float _shootingDelay = 1, _projectileAccel = 300;
+	float _lastShootTime=0;
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -47,9 +53,10 @@ public class PlayerAccel : MonoBehaviour
 		// Math calculation for gravity and jumpForce
 		gravity = -(2 * jumpHeight) / Mathf.Pow(timeToMaxJump, 2);
 		jumpForce = Mathf.Abs(gravity) * timeToMaxJump;
-
 		anim = GetComponent<Animator>();
-
+		
+		_choosedProjectile = _basicProjectiles;
+		StartCoroutine(Shooting());
 	}
 
 	// Update is called once per frame
@@ -237,4 +244,27 @@ public class PlayerAccel : MonoBehaviour
 		_freeze = true;
 		anim.Play("FrogIdle");
 	}
+
+	public IEnumerator Shooting()
+	{
+		float _shootingAngle=0;
+
+		while (true)
+		{
+			if (_lastShootTime + _shootingDelay <= Time.time)
+			{
+				Quaternion rotation = Quaternion.Euler(0, 0, _shootingAngle);
+				Instantiate(_choosedProjectile, transform.position,rotation);
+				_shootingAngle += 45;
+				if (_shootingAngle==360)
+				{
+					_shootingAngle = 0;
+				}
+
+				_lastShootTime = Time.time;
+			}
+			yield return null;
+		}
+	}
+
 }
