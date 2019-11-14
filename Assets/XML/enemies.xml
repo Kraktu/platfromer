@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<EnemiesRoot>
+	<Enemies>
+		<EnemyXML name="Poulet1">
+			<Position>
+				<x>6.81</x>
+				<y>-8.5</y>
+			</Position>
+			<Speed>4</Speed>
+			<FacingRight>false</FacingRight>
+			<Sentence>Hello Chicken</Sentence>
+			<ChickenType>red</ChickenType>
+		</EnemyXML>
+		<EnemyXML name="Poulet2">
+			<Position>
+				<x>5.35</x>
+				<y>0.5</y>
+			</Position>
+			<Speed>4</Speed>
+			<FacingRight>true</FacingRight>
+			<Sentence>Hello Chicken number 2</Sentence>
+			<ChickenType>white</ChickenType>
+		</EnemyXML>
+		<EnemyXML name="Poulet3">
+			<Position>
+				<x>16.81</x>
+				<y>15.5</y>
+			</Position>
+			<Speed>4</Speed>
+			<FacingRight>false</FacingRight>
+			<Sentence>Hello Chicken number 3</Sentence>
+			<ChickenType>black</ChickenType>
+		</EnemyXML>
+	</Enemies>
+</EnemiesRoot>

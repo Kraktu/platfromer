@@ -20,7 +20,7 @@ public class AnimationTIme : MonoBehaviour
 		}
 		foreach (KeyValuePair<string,float> clipTime in _animationClipsTime)
 		{
-			Debug.Log("key: " + clipTime.Key + "Value: " + clipTime.Value);
+			//Debug.Log("key: " + clipTime.Key + "Value: " + clipTime.Value);
 		}
 	}
 	public float GetTime(string clipName)

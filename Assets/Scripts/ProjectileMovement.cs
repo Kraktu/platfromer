@@ -17,6 +17,7 @@ public class ProjectileMovement : MonoBehaviour
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+		Boss boss = collision.gameObject.GetComponent<Boss>();
 
 		for (int i = 0; i < _opaqueTags.Length; i++)
 		{
@@ -35,7 +36,7 @@ public class ProjectileMovement : MonoBehaviour
 			}
 		}
 
-		if (enemy != null && !enemy._isTrap)
+		if (boss==null && enemy != null && !enemy._isTrap)
 		{
 			HitEnemy(enemy);
 			if (_destroyedOnImpactWithEnemy==true)

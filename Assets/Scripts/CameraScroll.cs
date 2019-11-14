@@ -36,7 +36,7 @@ public class CameraScroll : MonoBehaviour
 				{
 					transform.Translate(0, _camera.orthographicSize * 2, 0);
 				}
-				if (_player.transform.position.y < transform.position.y - _camera.orthographicSize - 3)
+				if (_player.transform.position.y < transform.position.y - _camera.orthographicSize - 2)
 				{
 					transform.Translate(0, -_camera.orthographicSize * 2, 0);
 				}

@@ -7,24 +7,28 @@ public class ButtonActions : MonoBehaviour
 	public GameObject[] _platformsToRemove;
 	public GameObject[] _platformsToActivate;
 	public bool _isSwitch;
-	bool _hasBeenTriggered = false;
+	[HideInInspector]
+	public bool _hasBeenTriggered = false;
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (!_hasBeenTriggered)
+		if (collision.gameObject.tag== "Player")
 		{
-			SwitchState(_platformsToRemove, _platformsToActivate);
-		}
-		else if (_hasBeenTriggered)
-		{
-			SwitchState(_platformsToActivate, _platformsToRemove);
-		}
+			if (!_hasBeenTriggered)
+			{
+				SwitchState(_platformsToRemove, _platformsToActivate);
+			}
+			else if (_hasBeenTriggered)
+			{
+				SwitchState(_platformsToActivate, _platformsToRemove);
+			}
 
-		_hasBeenTriggered = !_hasBeenTriggered;
+			_hasBeenTriggered = !_hasBeenTriggered;
 
-		if (!_isSwitch)
-		{
-			Destroy(gameObject);
+			if (!_isSwitch)
+			{
+				GetComponent<BoxCollider2D>().enabled = false;
+			}
 		}
 	}
 

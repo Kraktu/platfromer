@@ -79,7 +79,7 @@ public class MovementController : MonoBehaviour
 					if (direction < 0)
 						_collision.left = true;
 				}
-				Debug.Log(hit.point);
+				//Debug.Log(hit.point);
 			}
 		}
 	}

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
-public class EndLevel : MonoBehaviour
+	
+	public class EndLevel : MonoBehaviour
 {
 	public string _sceneToLoad;
 	private void OnTriggerEnter2D(Collider2D collision)
@@ -27,6 +27,8 @@ public class EndLevel : MonoBehaviour
 		player.Freeze();
 		GetComponent<Animator>().Play("EndPressed");
 		yield return new WaitForSeconds(1);
+		PlayerPrefs.SetString("level", _sceneToLoad);
+		PlayerPrefs.Save();
 		SceneManager.LoadScene(_sceneToLoad);
 
 	}

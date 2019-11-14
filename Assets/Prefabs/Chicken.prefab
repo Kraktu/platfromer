@@ -143,8 +143,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3877ba2d8092a64f9d247a99ab49f51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _boss: {fileID: 0}
   _speed: 4
   _facingRight: 1
+  _isTrap: 0
   _stopTimeOnFlip: 1
   _dangerous: 1
 --- !u!114 &1405282438

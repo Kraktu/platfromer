@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+public enum ChickenTypeEnum{white,red,black }
 
 [RequireComponent(typeof(MovementController))]
 public class Enemy : MonoBehaviour
 {
+	public Boss _boss;
 	public float _speed;
 	public bool _facingRight;
 	public bool _isTrap;
@@ -85,16 +87,20 @@ public class Enemy : MonoBehaviour
 	}
 	IEnumerator Dying()
 	{
+		if (_boss!=null)
+		{
+			_boss.StartBossCameraCoroutine();
+		}
 		GetComponent<BoxCollider2D>().enabled=false;
 		_dangerous = false;
 		_anim.Play("ChickenDie");
 		_velocity.x = 0;
 		yield return new WaitForSeconds(_animationTime.GetTime("ChickenDie"));
 
-
 		Destroy(gameObject);
 		_dieCoroutine = null;
 	}
+
 	IEnumerator FlipCoroutine()
 	{
 		float actualVelocity=_velocity.x;
