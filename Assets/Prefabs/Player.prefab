@@ -162,7 +162,7 @@ MonoBehaviour:
   _unblockedProjectiles: {fileID: 5744633697343242893, guid: 157a7479e31f40949bb117a114c41dcf,
     type: 3}
   _choosedProjectile: {fileID: 0}
-  _shootingDelay: 1
+  _shootingDelay: 0.5
   _projectileAccel: 300
 --- !u!114 &498982214
 MonoBehaviour:

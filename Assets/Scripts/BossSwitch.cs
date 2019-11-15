@@ -35,6 +35,7 @@ public class BossSwitch : MonoBehaviour
 		{
 			_objectToRemove[i].SetActive(true);
 		}
+		transform.position = _objectToRemove[(int)Random.Range(0, _objectToRemove.Length - 1)].transform.position+Vector3.up*1.5f;
 		_boss.OnLooseLife();
 		_boxCollider.enabled = true;
 
