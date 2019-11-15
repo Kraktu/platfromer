@@ -61,7 +61,7 @@ public class Boss : MonoBehaviour
 		float tColored;
 
 		Vector3 startScale = transform.localScale;
-		Vector3 endScale = new Vector3(_lifePoint, _lifePoint, 1);
+		Vector3 endScale = new Vector3(_lifePoint*0.7f, _lifePoint*0.7f, 1);
 		Color startColor = _sprite.color;
 		Color endColor = new Color(1, 1 / (_lifePoint) * 0.7f, 1 / (_lifePoint) * 0.7f, 1);
 			while (t < _animationDuration)
@@ -80,6 +80,6 @@ public class Boss : MonoBehaviour
 				yield return null;
 			}
 			transform.localScale = endScale;
-			_sprite.color = endColor;
+			_sprite.color = startColor;
 	}
 }

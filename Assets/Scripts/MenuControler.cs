@@ -1,15 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuControler : MonoBehaviour
 {
 	public List<MenuItem> _menuItems;
+	List<MenuItem> _initialMenuItems;
 	public Color _activeColor, _inactiveColor;
 	MenuItem _activeMenuItem;
 	int _activeIndex;
     void Start()
     {
+		_initialMenuItems = _menuItems;
 		InitMenu();   
     }
 
@@ -17,6 +20,7 @@ public class MenuControler : MonoBehaviour
     void Update()
     {
 		MenuNavigation();
+	
     }
 	void InitMenu()
 	{
@@ -27,6 +31,7 @@ public class MenuControler : MonoBehaviour
 			TextMesh textMesh = menuItem.GetComponent<TextMesh>();
 			textMesh.text = menuItem._label;
 			menuItem.SetInactive(_inactiveColor);
+			menuItem.InitAllSubItems();
 			
 		}
 		_activeMenuItem.SetActive(_activeColor);
@@ -41,6 +46,105 @@ public class MenuControler : MonoBehaviour
 		{
 			NavigateUpDown(goDown: false);
 		}
+		if (Input.GetKeyDown(KeyCode.Return))
+		{
+			MenuSelected();
+		}
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			foreach (MenuItem menuItem in _menuItems)
+			{
+
+				TextMesh textMesh = menuItem.GetComponent<TextMesh>();
+				textMesh.fontSize = 0;
+			}
+			_menuItems = _initialMenuItems;
+			foreach (MenuItem menuItem in _menuItems)
+			{
+
+				TextMesh textMesh = menuItem.GetComponent<TextMesh>();
+				textMesh.fontSize = 200;
+
+			}
+			InitMenu();
+		}
+	}
+	void MenuSelected()
+	{
+		switch (_activeMenuItem.action)
+		{
+			case MenuAction.GoDeeper:
+				ActionGoDeeper();
+				break;
+			case MenuAction.Credits:
+				ActionCredits();
+				break;
+			case MenuAction.Quit:
+				ActionQuit();
+				break;
+			case MenuAction.NewGame:
+				ActionNewGame();
+				break;
+			case MenuAction.Continue:
+				ActionContinue();
+				break;
+			case MenuAction.Resolution:
+				ActionResolution();
+				break;
+			case MenuAction.FullScreen:
+				ActionFullScreen();
+				break;
+			default:
+				break;
+		}
+
+
+	}
+	void ActionGoDeeper()
+	{
+		
+		_activeMenuItem.ShowAllSubItems();
+		foreach (MenuItem menuItem in _menuItems)
+		{
+			
+			TextMesh textMesh = menuItem.GetComponent<TextMesh>();
+			textMesh.fontSize = 0;
+		
+		}
+		_menuItems = _activeMenuItem._subMenuItems;
+		foreach (MenuItem menuItem in _menuItems)
+		{
+
+			TextMesh textMesh = menuItem.GetComponent<TextMesh>();
+			textMesh.fontSize = 200;
+
+		}
+		InitMenu();
+	}
+	void ActionCredits()
+	{
+		SceneManager.LoadScene("credits");
+	}
+	void ActionQuit()
+	{
+		Application.Quit();
+	}
+	void ActionNewGame()
+	{
+		SceneManager.LoadScene("level1");
+	}
+	void ActionContinue()
+	{
+
+
+	}
+	void ActionResolution()
+	{
+
+	}
+	void ActionFullScreen()
+	{
+
 	}
 	private void NavigateUpDown(bool goDown)
 	{
