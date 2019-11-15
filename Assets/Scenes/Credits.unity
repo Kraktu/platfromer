@@ -342,11 +342,14 @@ TextMesh:
   m_Text: 'Created by Me
 
 
-    Press U to Quit'
+    Press U to Quit
+
+
+    Right Click : Answer a Question'
   m_OffsetZ: 0
   m_CharacterSize: 0.1
   m_LineSpacing: 1
-  m_Anchor: 0
+  m_Anchor: 4
   m_Alignment: 0
   m_TabSize: 4
   m_FontSize: 300
@@ -402,7 +405,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2028578483}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.27, y: 6.35, z: 5}
+  m_LocalPosition: {x: -0, y: 0, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -420,6 +423,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e07fde79aa3bdf41b3d520330920589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sentence:
+  - Oui
+  - Non
+  - "Je ne r\xE9pondrais pas"
+  - "Peut-\xEAtre"
+  - Ca te plairait hein ? Mais non.
+  - "D\xE9sol\xE9 j'\xE9coutais pas."
+  - Bien sur !
+  - Plusieurs fois !
+  - "Ca n'int\xE9resse personne"
+  - "Joues \xE0 mon jeu plut\xF4t que de parler"
 --- !u!1001 &4311584293443496091
 PrefabInstance:
   m_ObjectHideFlags: 0
