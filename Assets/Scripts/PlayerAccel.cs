@@ -15,6 +15,7 @@ public class PlayerAccel : MonoBehaviour
 	public float timeTomaxSpeed;
 	float minSpeedThreshold;
 	public float _hitBounceBack;
+	int generatedNumber=5;
 
 	[Tooltip("Unity value of max jump height")]
 	public float jumpHeight;
@@ -25,6 +26,7 @@ public class PlayerAccel : MonoBehaviour
 	public float airControl;
 	public int _maxAirJump;
 	int _jumpCount;
+	public string[] _footstepsreverb;
 
 	bool _turnedRight = true, _isJumping = false, _wallJumpedLeft = false, _wallJumpedRight = false, _wallJumped=false, _hitted;
 	public bool _freeze { get; private set; }
@@ -176,9 +178,21 @@ public class PlayerAccel : MonoBehaviour
 			
 		}
 	}
+	public void AnimationFootStepSound()
+	{
+		int previousGeneratedNumber;
+
+		previousGeneratedNumber = generatedNumber;
+		while (previousGeneratedNumber==generatedNumber)
+		{
+			generatedNumber = Random.Range(0, _footstepsreverb.Length);
+		}
+		Debug.Log(generatedNumber);
+		SoundManager.Instance.PlaySoundEffect(_footstepsreverb[generatedNumber], Random.Range(0.5f, 1.5f), Random.Range(0.5f, 1.5f));
+	}
 	public void JumpA()
 	{
-		SoundManager.Instance.PlaySoundEffect("PlayerJump");
+		SoundManager.Instance.PlaySoundEffect("PlayerJump",Random.Range(0.8f,1.2f),-5);
 		_isJumping = true;
 		velocity.y = jumpForce;
 		if (_wallJumped==true&& _wallJumpedRight == true)
@@ -215,6 +229,7 @@ public class PlayerAccel : MonoBehaviour
 		yield return new WaitForEndOfFrame();
 		if (enemy._dangerous)
 		{
+			//SoundManager.Instance.lowerMusicPitch(_animationTIme.GetTime("FrogHit"));
 			SoundManager.Instance.PlaySoundEffect("PlayerDie");
 			anim.Play("FrogHit");
 			_freeze = true;
@@ -243,6 +258,10 @@ public class PlayerAccel : MonoBehaviour
 	{
 		_freeze = true;
 		anim.Play("FrogIdle");
+	}
+	public void UnFreeze()
+	{
+		_freeze = false;
 	}
 
 	public IEnumerator Shooting()

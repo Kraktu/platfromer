@@ -15,6 +15,7 @@ public class CameraScroll : MonoBehaviour
 		StartCoroutine(FindingPlayer());
 		StartCoroutine(CameraFollowingScreen());
 	}
+
 	IEnumerator FindingPlayer()
 	{
 		while (true)

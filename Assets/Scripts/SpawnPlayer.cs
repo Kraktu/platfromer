@@ -29,6 +29,7 @@ public class SpawnPlayer : MonoBehaviour
 	public void ReSpawn()
 	{
 		Instantiate(_playerToSpawn, transform.position, Quaternion.identity);
+		SoundManager.Instance.ReturnAtOriginalMusicPitch();
 		_spawnAnimator.Play("StartMoving");
 		_maxLifePoint--;
 		_lifeText.text = "" + _maxLifePoint;

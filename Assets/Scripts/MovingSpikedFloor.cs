@@ -84,7 +84,9 @@ public class MovingSpikedFloor : MonoBehaviour
 	{
 		for (int i = 0; i < _heightInBlocs; i++)
 		{
+	
 			SpikeMove();
+			SoundManager.Instance.PlaySoundEffect("BrickBuilt");
 			yield return new WaitForSeconds(_timeBetweenBlockCreation);
 		}
 		//int iteration = 0;

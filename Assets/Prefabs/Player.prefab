@@ -147,8 +147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fcd52eaa019ab74289267a1565074a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _aSourceDie: {fileID: 0}
-  _aSourceJump: {fileID: 0}
   maxFallingSpeed: -20
   maxSpeed: 10
   timeTomaxSpeed: 0.2
@@ -157,6 +155,11 @@ MonoBehaviour:
   timeToMaxJump: 0.2
   airControl: 0.2
   _maxAirJump: 1
+  _footstepsreverb:
+  - FootStepReverb01
+  - FootStepReverb02
+  - FootStepReverb03
+  - FootStepReverb04
   _basicProjectiles: {fileID: 5744633697343242893, guid: 157a7479e31f40949bb117a114c41dcf,
     type: 3}
   _bouncingProjectiles: {fileID: 5744633697343242893, guid: 157a7479e31f40949bb117a114c41dcf,
@@ -227,8 +230,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fee0b350ddccce24487d5c6a62af41ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _circleRadius: 1.36
-  _zoomMagnitude: 5
 --- !u!1 &4221438923914373387
 GameObject:
   m_ObjectHideFlags: 0
