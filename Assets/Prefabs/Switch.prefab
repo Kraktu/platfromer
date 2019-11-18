@@ -139,3 +139,4 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   _isSwitch: 0
+  _hasBeenTriggered: 0

@@ -29,6 +29,7 @@ public class ButtonActions : MonoBehaviour
 			{
 				GetComponent<BoxCollider2D>().enabled = false;
 			}
+			SoundManager.Instance.PlaySoundEffect("SwitchActivated");
 		}
 	}
 

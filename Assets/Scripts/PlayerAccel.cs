@@ -54,7 +54,6 @@ public class PlayerAccel : MonoBehaviour
 		gravity = -(2 * jumpHeight) / Mathf.Pow(timeToMaxJump, 2);
 		jumpForce = Mathf.Abs(gravity) * timeToMaxJump;
 		anim = GetComponent<Animator>();
-		
 		_choosedProjectile = _basicProjectiles;
 		StartCoroutine(Shooting());
 	}
@@ -179,7 +178,7 @@ public class PlayerAccel : MonoBehaviour
 	}
 	public void JumpA()
 	{
-
+		SoundManager.Instance.PlaySoundEffect("PlayerJump");
 		_isJumping = true;
 		velocity.y = jumpForce;
 		if (_wallJumped==true&& _wallJumpedRight == true)
@@ -216,11 +215,12 @@ public class PlayerAccel : MonoBehaviour
 		yield return new WaitForEndOfFrame();
 		if (enemy._dangerous)
 		{
-		anim.Play("FrogHit");
-		_freeze = true;
-		StartCoroutine(HittedMovement());
-		yield return new WaitForSeconds(_animationTIme.GetTime("FrogHit"));
-		Die();
+			SoundManager.Instance.PlaySoundEffect("PlayerDie");
+			anim.Play("FrogHit");
+			_freeze = true;
+			StartCoroutine(HittedMovement());
+			yield return new WaitForSeconds(_animationTIme.GetTime("FrogHit"));
+			Die();
 		}
 		_gettingHit = null;
 	}

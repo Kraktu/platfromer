@@ -64,7 +64,9 @@ public class Boss : MonoBehaviour
 		Vector3 endScale = new Vector3(_lifePoint*0.7f, _lifePoint*0.7f, 1);
 		Color startColor = _sprite.color;
 		Color endColor = new Color(1, 1 / (_lifePoint) * 0.7f, 1 / (_lifePoint) * 0.7f, 1);
-			while (t < _animationDuration)
+		SoundManager.Instance.PlaySoundEffect("ChickenBossGrow",1+_lifePoint*0.1f);
+		SoundManager.Instance.ChangeMusicPitch(0.9f + _lifePoint * 0.1f);
+		while (t < _animationDuration)
 			{
 				tRatio = t / _animationDuration; ;
 				tScaled = _scaleAnimation.Evaluate(tRatio);

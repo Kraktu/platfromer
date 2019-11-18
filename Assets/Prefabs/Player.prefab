@@ -147,6 +147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fcd52eaa019ab74289267a1565074a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _aSourceDie: {fileID: 0}
+  _aSourceJump: {fileID: 0}
   maxFallingSpeed: -20
   maxSpeed: 10
   timeTomaxSpeed: 0.2

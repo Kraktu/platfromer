@@ -48,6 +48,7 @@ public class MovingSpikedFloor : MonoBehaviour
 		{
 			_createdTiles = new List<GameObject>();
 			_resetTrapSwitch.GetComponent<BoxCollider2D>().enabled=true;
+			_resetTrapSwitch.GetComponent<ButtonActions>()._hasBeenTriggered = false;
 
 			_spikeMoveCoroutine=StartCoroutine(SpikeMoveCoroutine());
 		}
@@ -81,13 +82,18 @@ public class MovingSpikedFloor : MonoBehaviour
 
 	public IEnumerator SpikeMoveCoroutine()
 	{
-		int iteration = 0;
-		while (iteration<_heightInBlocs)
+		for (int i = 0; i < _heightInBlocs; i++)
 		{
 			SpikeMove();
-			iteration++;
 			yield return new WaitForSeconds(_timeBetweenBlockCreation);
 		}
+		//int iteration = 0;
+		//while (iteration<_heightInBlocs)
+		//{
+		//	SpikeMove();
+		//	iteration++;
+		//	yield return new WaitForSeconds(_timeBetweenBlockCreation);
+		//}
 	}
 
 }

@@ -92,6 +92,7 @@ public class Enemy : MonoBehaviour
 			_boss.StartBossCameraCoroutine();
 		}
 		GetComponent<BoxCollider2D>().enabled=false;
+		SoundManager.Instance.PlaySoundEffect("ChickenDie");
 		_dangerous = false;
 		_anim.Play("ChickenDie");
 		_velocity.x = 0;

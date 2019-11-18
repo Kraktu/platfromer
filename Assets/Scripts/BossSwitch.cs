@@ -18,6 +18,7 @@ public class BossSwitch : MonoBehaviour
 		if (collision.gameObject.tag == "Player")
 		{
 			_boxCollider.enabled = false;
+			SoundManager.Instance.PlaySoundEffect("BossSwitchActivated");
 			StartCoroutine(HitBoss());
 		}
 	}
